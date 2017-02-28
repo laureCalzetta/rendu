@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 var IssueSchema = new Schema({
+  // Name of Issue
   name: String,
 
   // String, "new", "inProgress", "canceled" or "completed", the status of the issue:
@@ -16,6 +17,7 @@ var IssueSchema = new Schema({
   //   - Change from "inProgress" to "completed" to indicate that the issue has been resolved
   status: {
     type: String,
+    require: true,
     enum: ['new', 'inProgress', 'canceled', 'completed']
 
   // (Optional) String, 1000 characters max, a detailed description of the issue
@@ -36,26 +38,32 @@ var IssueSchema = new Schema({
       type: String
     },
     // Order -> [Longitude, Lattidue]
-    coordinates: [Number, Number]
+    coordinates: [Number, Number],
+    require: true
   },
 
-  // Array of Strings, user-defined tags to describe the issue (e.g. "accident", "broken")
-  tags: String,
+  // (Optional) Array of Strings, user-defined tags to describe the issue (e.g. "accident", "broken")
+  tags: [ { type: String } ]
 
   // User, the user who reported the issue
-  user: Schema.Types.ObjectId,
+  user: {
+    type; Schema.Types.ObjectId,
+  }
+
 
   // Date, the date at which the issue was reported
-  created_at: Date,
+  created_at: {
+    type: Date,
+    default: Date.now
+  }
 
   // Date, the date at which the issue was last modified
   updated_at: Date,
 
-
 });
 
-// IssueSchema.index({
-//   localisation: "2dsphere"
-// });
+ IssueSchema.index({
+   localisation: "2dsphere"
+ });
 
 mongoose.model('Issue', IssueSchema);
