@@ -3,7 +3,6 @@ var router = express.Router();
 const User = require('../models/user');
 const Issue = require('../models/issue');
 
-
 /* GET users listing */
 router.get('/', function(req, res, next) {
   User.find().sort('name').exec(function(err, users) {
@@ -16,7 +15,6 @@ router.get('/', function(req, res, next) {
 
 /* GET find a user */
 router.get('/:user_id', function(req, res, next) {
-
   User.findById(req.params.user_id, function(err, user) {
          if (err) {
         return next(err);
@@ -24,7 +22,6 @@ router.get('/:user_id', function(req, res, next) {
       res.send(user);
     });
 });
-
 
 /* POST new user */
 router.post('/', function(req, res, next) {
@@ -46,7 +43,6 @@ router.put('/:user_id', function(req, res, next) {
     if (err) {
       return next(err);
     }
-
   user.firstname = req.body.firstname;
   user.lastname = req.body.lastname;
   user.roles = req.body.roles;
@@ -56,15 +52,12 @@ router.put('/:user_id', function(req, res, next) {
           return next(err);
         }
     });
-
     res.send(user);
   });
-
 });
 
 router.patch('/:user_id', function(req, res, next) {
    User.findById(req.params.user_id, function(err, user) {
-
     if (req.body.firstname !== undefined) {
       user.firstname = req.body.firstname;
     }
@@ -74,18 +67,13 @@ router.patch('/:user_id', function(req, res, next) {
     if (req.body.roles !== undefined) {
       user.roles = req.body.roles;
     }
-
     user.save(function(err) {
         if (err) {
         return next(err);
       }
-
     });
-
     res.send(user);
   });
-
 });
-
 
 module.exports = router;

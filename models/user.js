@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 
 /**
- * A user with a firstname, a lastname, a roles et the date. 
+ * A user with a firstname, a lastname, a role et the date of the creation.
  * Two users must not have the same first and last name
  */
 
@@ -25,7 +25,7 @@ const userSchema = new Schema({
     required: true
   },
   // createdAt - Date, the date at which the user was registered
-  //set date by default at now, anyway we override it below with .virtual
+  // set date by default at now, anyway we override it below with .virtual
   createdAte: {
     type: Date,
     default: Date.now
