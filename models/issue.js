@@ -26,14 +26,14 @@ var IssueSchema = new Schema({
     type: String, maxlength: 500
   },
 
-  // Number, the latitude (part of the coordinates indicating where the issue is)
   // Number, the longitude (part of the coordinates indicating where the issue is)
-  // Convention standart de géojson (geojson.org)
+  // Number, the latitude (part of the coordinates indicating where the issue is)
+  // Standard agreement of GéoJson (geojson.org)
   localisation: {
     type: {
       type: String
     },
-    // longitude et lattidue
+    // Order -> [Longitude, Lattidue]
     coordinates: [Number, Number]
   },
 
@@ -49,16 +49,6 @@ var IssueSchema = new Schema({
   // Date, the date at which the issue was last modified
   updated_at: Date,
 
-// ????
-  // solved_at: Date,
-  // type: {
-  //  type: String
-  // },
-
-  // action: [String], //ajouter la date de l'action et le responsable de l'action
-
-  // responsable: Schema.Types.ObjectId,
-//
 
 });
 
