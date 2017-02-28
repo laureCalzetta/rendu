@@ -14,7 +14,9 @@ var IssueSchema = new Schema({
   //   - Change from "new" to "inProgress" to indicate that a city employee is working on the issue
   //   - Change from "new" or "inProgress" to "canceled" to indicate that a city employee has determined this is not a real issue
   //   - Change from "inProgress" to "completed" to indicate that the issue has been resolved
-  status: String,
+  status: {
+    type: String,
+    enum: ['new', 'inProgress', 'canceled', 'completed']
 
   // (Optional) String, 1000 characters max, a detailed description of the issue
   description: {
@@ -52,8 +54,8 @@ var IssueSchema = new Schema({
 
 });
 
-IssueSchema.index({
-  localisation: "2dsphere"
-});
+// IssueSchema.index({
+//   localisation: "2dsphere"
+// });
 
 mongoose.model('Issue', IssueSchema);
