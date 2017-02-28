@@ -115,3 +115,32 @@ function validateCreator(value, callback) {
     callback();
   });
 }
+
+
+/**
+ * Returns the hyperlink to the issue's creator.
+ * (If the creator has been populated, the _id will be extracted from it.)
+ */
+function getCreatorHref() {
+  return `/api/users/${this.creator._id || this.creator}`;
+}
+
+/**
+ * Sets the issue's creator from a person hyperlink.
+ */
+function setCreatorHref(value) {
+
+  // Store the original hyperlink 
+  this._creatorHref = value;
+
+  // Remove "/api/users/" from the beginning of the value
+  const userId = value.replace(/^\/api\/users\//, '');
+
+  if (ObjectId.isValid(userId)) {
+    // Set the creator if the value is a valid MongoDB ObjectId
+    this.creator = userId;
+  } else {
+    // Unset the creator otherwise
+    this.creator = null;
+  }
+}
