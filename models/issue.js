@@ -28,10 +28,12 @@ var IssueSchema = new Schema({
 
   // Number, the latitude (part of the coordinates indicating where the issue is)
   // Number, the longitude (part of the coordinates indicating where the issue is)
+  // Convention standart de géojson (geojson.org)
   localisation: {
     type: {
       type: String
     },
+    // longitude et lattidue
     coordinates: [Number, Number]
   },
 
