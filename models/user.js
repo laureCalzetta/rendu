@@ -18,7 +18,7 @@ const userSchema = new Schema({
 });
 
 // force value to be the current date
-//userSchema.virtual('date').get(function () 
+//userSchema.virtual('date').get(function ()
 //{
 //    return Date.now;
 //});
