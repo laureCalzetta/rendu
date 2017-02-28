@@ -107,6 +107,8 @@ router.post('/', utils.requireJson, function(req, res, next) {
  *       }
  *     ]
  */
+
+ // ICI //
 router.get('/', function(req, res, next) {
 
   // Count total movies matching the URL query parameters

@@ -129,8 +129,7 @@ function getCreatorHref() {
  * Sets the issue's creator from a person hyperlink.
  */
 function setCreatorHref(value) {
-
-  // Store the original hyperlink 
+  // Store the original hyperlink
   this._creatorHref = value;
 
   // Remove "/api/users/" from the beginning of the value
