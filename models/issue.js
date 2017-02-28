@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 const Schema = mongoose.Schema;
 
-// Define the schema for issue
+/**
+ * A issue created by a user. For create a issue
+ * It's necessary to havea a status, a localisation, a creator and the date of creation.
+ * And optional a name, a description, a image URL, somes tags.
+ * When the issue is modified, the date of the last modification.
+ */
 
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
-
-var IssueSchema = new Schema({
+const issueSchema = new Schema({
   // Name of Issue
   name: String,
 
@@ -45,25 +48,70 @@ var IssueSchema = new Schema({
   // (Optional) Array of Strings, user-defined tags to describe the issue (e.g. "accident", "broken")
   tags: [ { type: String } ]
 
-  // User, the user who reported the issue
-  user: {
-    type; Schema.Types.ObjectId,
+  // User, the user who reported the issue. He's the creator
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    require: true,
+    validate: {
+      // Validate that the creator is a valid ObjectId
+      // and references an existing user
+      validator: validateCreator
+    }
   }
-
+  }
 
   // Date, the date at which the issue was reported
   created_at: {
     type: Date,
+    require: true,
     default: Date.now
   }
 
   // Date, the date at which the issue was last modified
-  updated_at: Date,
+  // quand on l'appelle on met Date.now()
+  updated_at: {
+    type: Date
+  }
 
 });
 
- IssueSchema.index({
-   localisation: "2dsphere"
- });
+/**
+ * Add a virtual "creatorHref" property:
+ *
+ * * "issue.creatorHref" will return the result of calling getCreatorHref with the issue as this
+ * * "issue.creatorHref = value" will return the result of calling setCreatorHref with the issue as this and value as an argument
+ */
+issueSchema.virtual('creatorHref').get(getCreatorHref).set(setCreatorHref);
 
-mongoose.model('Issue', IssueSchema);
+// Customize the behavior of issue.toJSON() (called when using res.send)
+issueSchema.set('toJSON', {
+  transform: transformJsonIssue, // Modify the serialized JSON with a custom function
+  virtuals: true // Include virtual properties when serializing documents to JSON
+});
+
+
+/**
+ * Given a user ID, ensures that it references an existing user.
+ *
+ * If it's not the case or the ID is missing or not a valid object ID,
+ * the "directorHref" property is invalidated instead of "director".
+ * (That way, the client gets an error on "creatorHref", which is the
+ * property they sent, rather than "creator", which they don't know.)
+ */
+function validateCreator(value, callback) {
+  if (!value && !this._creatorHref) {
+    this.invalidate('creatorHref', 'Path `creatorHref` is required', value, 'required');
+    return callback();
+  } else if (!ObjectId.isValid(value)) {
+    this.invalidate('creatorHref', 'Path `creatorHref` is not a valid User reference', this._creatorHref, 'resourceNotFound');
+    return callback();
+  }
+
+  mongoose.model('User').findOne({ _id: ObjectId(value) }).exec(function(err, user) {
+    if (err || !user) {
+      this.invalidate('creatorHref', 'Path `creatorHref` does not reference a User that exists', this._creatorHref, 'resourceNotFound');
+    }
+    callback();
+  });
+}
