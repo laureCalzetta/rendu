@@ -257,14 +257,14 @@ function userNotFound(res, userId) {
  */
 
 /**
- * @apiDefine IssueInRequestBody
+ * @apiDefine UserInRequestBody
  * @apiParam (Request body) {String{2..20}} firstname the user's firstname (2-20 characters)
  * @apiParam (Request body) {String{2..20}} lastname the user's lastname (2-20 characters)
  * @apiParam (Request body) {String="citizen","manager"} role The user's role (citizen or manager)
  */
 
 /**
- * @apiDefine IssueInResponseBody
+ * @apiDefine UserInResponseBody
  * @apiSuccess (Response body) {String} id The unique identifier of the user
  * @apiSuccess (Response body) {String} firstname The user's firstname
  * @apiSuccess (Response body) {String} lastname The user's lastname

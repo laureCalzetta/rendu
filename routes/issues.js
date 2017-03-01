@@ -75,7 +75,6 @@ router.post('/', function(req, res, next) {
  * @apiDescription Retrieves a paginated list of issues.
  *
  * @apiUse IssueInResponseBody
- * @apiUse IssueIncludes
  *
  * @apiExample Example
  *     GET /issues HTTP/1.1
@@ -132,7 +131,7 @@ router.get('/', function(req, res, next) {
  * @apiDescription Retrieves a paginated filter list of issues.
  *
  * @apiUse IssueInResponseBody
- * @apiUse IssueIncludes
+ *
  * @apiParam (URL query parameters) {String} [creator] Select only issues created by the user with the specified ID (this parameter can be given multiple times)
  *
  * @apiExample Example
@@ -199,7 +198,6 @@ router.get('/user/:id', function(req, res, next) {
  *
  * @apiUse IssueIdInUrlPath
  * @apiUse IssueInResponseBody
- * @apiUse IssueIncludes
  * @apiUse IssueNotFoundError
  *
  * @apiExample Example
