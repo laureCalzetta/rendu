@@ -4,9 +4,7 @@ const Schema = mongoose.Schema;
 
 /**
  * A user with a firstname, a lastname, a role et the date of the creation.
- * Two users must not have the same first and last name
  */
-
 const userSchema = new Schema({
 
   // firstName - String, 2-20 characters
@@ -32,7 +30,7 @@ const userSchema = new Schema({
   },
 
   // role - String, "citizen" or "manager"
-  roles: {
+  role: {
     type: String,
     enum: ['citizen', 'manager'],
     required: true

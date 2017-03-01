@@ -5,14 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var issues = require('./routes/issues');
 var users = require('./routes/users');
 
 var app = express();
 
 const mongoose = require('mongoose');
-
 mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/my-db-name');
+mongoose.set("debug", true);
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'docs')));
 
+app.use('/issues', issues);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
@@ -36,6 +38,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  console.log(err);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
