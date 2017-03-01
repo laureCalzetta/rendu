@@ -152,8 +152,9 @@ router.post('/', function(req, res, next) {
  */
 router.put('/:user_id', function(req, res, next) {
    User.findById(req.params.user_id, function(err, user) {
+    const user_id = req.params.user_id;
     if (err) {
-      return next(err);
+        return userNotFound(res, user_id);
     }
   user.firstname = req.body.firstname;
   user.lastname = req.body.lastname;
@@ -213,6 +214,11 @@ router.put('/:user_id', function(req, res, next) {
  */
 router.patch('/:user_id', function(req, res, next) {
    User.findById(req.params.user_id, function(err, user) {
+    const user_id = req.params.user_id;
+    if (err) {
+        return userNotFound(res, user_id);
+    }
+
     if (req.body.firstname !== undefined) {
       user.firstname = req.body.firstname;
     }
@@ -276,6 +282,18 @@ function userNotFound(res, userId) {
  *     Content-Type: text/plain
  *
  *     No user found with ID 58b2926f5e1def0123e97bc0
+ */
+
+ /**
+ * @apiDefine UserValidationError
+ *
+ * @apiError {Object} 422/UnprocessableEntity Some of the user's properties are invalid
+ *
+ * @apiErrorExample {json} 422 Unprocessable Entity
+ *     HTTP/1.1 422 Unprocessable Entity
+ *     Content-Type: application/json
+ *
+ *     l'erreur suivante est survenue : ValidationError: Path `role` is required.
  */
 
 

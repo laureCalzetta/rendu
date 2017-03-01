@@ -308,6 +308,10 @@ router.delete('/:id', function(req, res, next) {
 router.patch('/:id', function(req, res, next) {
 
   Issue.findById(req.params.id, function(err, issue) {
+  	const id = req.params.id;
+    if (err) {
+        return issueNotFound(res, id);
+    }
 
     if (req.body.status !== undefined) {
     	issue.status = req.body.status;
@@ -406,6 +410,11 @@ router.put('/:id', function(req, res, next) {
   // Update all properties (regardless of whether the are present in the request body or not)
   Issue.findById(req.params.id, function(err, issue) {
 
+  	const id = req.params.id;
+    if (err) {
+        return issueNotFound(res, id);
+    }
+
 	issue.status = req.body.status;
 	issue.description = req.body.description;
 	issue.imageUrl = req.body.imageUrl;
@@ -447,8 +456,7 @@ function issueNotFound(res, issueId) {
 
 /**
  * @apiDefine IssueInRequestBody
- * @apiParam (Request body) {String} new default status of the issue
- * @apiParam (Request body) {String="new","inProgress", "canceled", "completed"} status The status of the issue
+ * @apiParam (Request body) {String="new","inProgress", "canceled", "completed"} status The status of the issue (default: new)
  * @apiParam (Request body) {String{0..1000}} [description] (Optional) The description of the issue
  * @apiParam (Request body) {String{0..500}} [url] (Optional) The url of the picture
  * @apiParam (Request body) {Number{0..30}} [latitude] (Optional) the latitude (part of the coordinates indicating where the issue is)
@@ -477,6 +485,18 @@ function issueNotFound(res, issueId) {
  *     Content-Type: text/plain
  *
  *     No issue found with ID 58b2926f5e1def0123e97bc0
+ */
+
+ /**
+ * @apiDefine IssueValidationError
+ *
+ * @apiError {Object} 422/UnprocessableEntity Some of the issue's properties are invalid
+ *
+ * @apiErrorExample {json} 422 Unprocessable Entity
+ *     HTTP/1.1 422 Unprocessable Entity
+ *     Content-Type: application/json
+ *
+ *     l'erreur suivante est survenue : ValidationError: `fdg` is not a valid enum value for path `status`.
  */
 
 module.exports = router;
