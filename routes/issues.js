@@ -11,7 +11,7 @@ const router = express.Router();
 /**
  * @api {post} /api/issues Create a issue
  * @apiName CreateIssue
- * @apiGroup Issues
+ * @apiGroup Issue
  * @apiVersion 1.0.0
  * @apiDescription Registers a new Issue.
  *
