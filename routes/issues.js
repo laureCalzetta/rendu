@@ -124,7 +124,7 @@ router.get('/', function(req, res, next) {
 });
 
 /**
- * @api {get} /api/issues Retrieve list of objects of a person
+ * @api {get} /issue/user/:id Retrieve list of objects of a person
  * @apiName RetrieveFilterIssues
  * @apiGroup Issue
  * @apiVersion 1.0.0
