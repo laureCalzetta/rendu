@@ -9,7 +9,7 @@ const Issue = require('../models/issue');
 const router = express.Router();
 
 /**
- * @api {post} /api/issues Create a issue
+ * @api {post} /issues Create a issue
  * @apiName CreateIssue
  * @apiGroup Issue
  * @apiVersion 1.0.0
@@ -68,11 +68,11 @@ router.post('/', function(req, res, next) {
 });
 
 /**
- * @api {get} /api/issues List issues
+ * @api {get} /api/issues Retrieve the list of issues
  * @apiName RetrieveIssues
  * @apiGroup Issue
  * @apiVersion 1.0.0
- * @apiDescription Retrieves a paginated list of issues.
+ * @apiDescription the list of issues.
  *
  * @apiUse IssueInResponseBody
  *
@@ -124,15 +124,15 @@ router.get('/', function(req, res, next) {
 });
 
 /**
- * @api {get} /api/issues List issues
+ * @api {get} /api/issues Retrieve list of objects of a person
  * @apiName RetrieveFilterIssues
  * @apiGroup Issue
  * @apiVersion 1.0.0
- * @apiDescription Retrieves a paginated filter list of issues.
+ * @apiDescription The List of issue filter by a user's id.
  *
  * @apiUse IssueInResponseBody
  *
- * @apiParam (URL query parameters) {String} [creator] Select only issues created by the user with the specified ID (this parameter can be given multiple times)
+ * @apiParam (URL query parameters) {String} user Select only issues created by the user with the specified ID (this parameter can be given multiple times)
  *
  * @apiExample Example
  *     GET /api/issues/issues/user/58b6891d5eb8a407e3813cf9 HTTP/1.1
@@ -190,7 +190,7 @@ router.get('/user/:id', function(req, res, next) {
 });
 
 /**
- * @api {get} /api/issues/:id Retrieve a issue
+ * @api {get} /api/issues/:id Retrieve a specific issue
  * @apiName RetrieveIssue
  * @apiGroup Issue
  * @apiVersion 1.0.0
