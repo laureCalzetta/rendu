@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Issue = require('../models/issue');
 
 /**
- * @api {post} /api/users Create a user
+ * @api {post} users Create a user
  * @apiName CreateUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -22,20 +22,19 @@ const Issue = require('../models/issue');
  *     {
  *       "firstname": "John",
  *       "lastname": "Doe",
- *       "createdAte": "2017-29-02T08:30:00.000Z",
  *       "role": "citizen"
  *     }
  *
  * @apiSuccessExample 201 Created
  *     HTTP/1.1 201 Created
  *     Content-Type: application/json
- *     Location: https://heigvd-webserv-2017-team-2.herokuapp.com/users/58b2926f5e1def0123e97bc0
+ *     Location: https://heigvd-webserv-2017-team-2.herokuapp.com/users
  *
  *     {
- *       "id": "58b2926f5e1def0123e97bc0",
+ *       "id": "58c03bc9cfb9e30011edf398",
  *       "firstname": "John",
  *       "lastname": "Doe",
- *       "createdAte": "2017-29-02T08:30:00.000Z",
+ *       "createdAte": "2017-03-08T17:13:45.882Z",
  *       "role": "citizen"
  *     }
  */
@@ -46,10 +45,10 @@ router.post('/', function(req, res, next) {
   newUser.save(function(err, savedUser) {
     if (err) {
       if (err.name == 'ValidationError') {
-        res.status(422).send("l'erreur suivante est survenue : " + err);
+        res.status(422).send("There's a error : " + err);
         return;
       } else {
-        res.status(500).send("l'erreur suivante est survenue : " + err);
+        res.status(500).send("There's a error : " + err);
         return;
       }
     }
@@ -61,7 +60,7 @@ router.post('/', function(req, res, next) {
 
 
 /**
- * @api {get} /api/users Retrieve the list of issues
+ * @api {get} users Get the list of issues
  * @apiName RetrieveUsers
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -74,25 +73,24 @@ router.post('/', function(req, res, next) {
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
- *     Link: &lthttps://heigvd-webserv-2017-team-2.herokuapp.com/users; rel="first prev"
+ *     Link: https://heigvd-webserv-2017-team-2.herokuapp.com/users"
  *     [
- *     {
- *       "id": "58b2926f5e1def0123e97bc0",
- *       "firstname": "Jenny",
- *       "lastname": "Doe",
- *       "createdAte": "2017-29-02T08:30:00.000Z",
- *       "role": "citizen"
- *     },
- *     {
- *       "id": "58b2926f5e1def0123e97bc0",
- *       "firstname": "Dany",
- *       "lastname": "Doe",
- *       "createdAte": "2017-29-02T08:30:00.000Z",
- *       "role": "citizen"
- *     }
+ *       {
+ *         "firstname": "Sophie",
+ *         "lastname": "Donnet",
+ *         "role": "manager",
+ *         "createdAte": "2017-03-08T17:15:03.006Z",
+ *         "id": "58b577e4ab8f2b00111b835f"
+ *       },
+ *       {
+ *         "firstname": "John",
+ *         "lastname": "Doe",
+ *         "role": "citizen",
+ *         "createdAte": "2017-03-08T17:13:45.882Z",
+ *         "id": "58c03bc9cfb9e30011edf398"
+ *       }
  *     ]
  */
-
 router.get('/', function(req, res, next) {
   User.find().sort('name').exec(function(err, users) {
     if (err) {
@@ -103,7 +101,7 @@ router.get('/', function(req, res, next) {
 });
 
 /**
- * @api {get} /users/:id Retrieve a specific user
+ * @api {get} users/:id Get a specific user
  * @apiName RetrieveUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -114,19 +112,19 @@ router.get('/', function(req, res, next) {
  * @apiUse UserNotFoundError
  *
  * @apiExample Example
- *     GET /users/58b2926f5e1def0123e97bc0 HTTP/1.1
+ *     GET /users/58c03bc9cfb9e30011edf398 HTTP/1.1
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
  *
- *     {
- *       "id": "58b2926f5e1def0123e97bc0",
- *       "firstname": "Jenny",
- *       "lastname": "Doe",
- *       "createdAte": "2017-29-02T08:30:00.000Z",
- *       "role": "citizen"
- *     }
+ * {
+ *   "firstname": "John",
+ *   "lastname": "Doe",
+ *   "role": "citizen",
+ *   "createdAte": "2017-03-08T17:13:45.882Z",
+ *   "id": "58c03bc9cfb9e30011edf398"
+ * }
  */
 router.get('/:user_id', function(req, res, next) {
   User.findById(req.params.user_id, function(err, user) {
@@ -138,7 +136,7 @@ router.get('/:user_id', function(req, res, next) {
     });
 });
 /**
- * @api {put} /users/:id Update a user
+ * @api {put} users/:id Update a user
  * @apiName UpdateUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -151,27 +149,28 @@ router.get('/:user_id', function(req, res, next) {
  * @apiUse UserValidationError
  *
  * @apiExample Example
- *     PUT /users/58b2926f5e1def0123e97bc0 HTTP/1.1
+ *     PUT /users/58b577e4ab8f2b00111b835f HTTP/1.1
  *     Content-Type: application/json
  *
- *     {
- *       "id": "58b2926f5e1def0123e97bc0",
- *       "firstname": "Jenny",
- *       "lastname": "Doe",
- *       "role": "citizen"
- *     }
+ *    {
+ *       "firstname": "Sophie",
+ *       "lastname": "Donnet-Monnet",
+ *       "role": "manager",
+ *       "createdAte": "2017-03-08T17:15:03.006Z",
+ *       "id": "58b577e4ab8f2b00111b835f"
+ *    }
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
  *
- *     {
- *       "id": "58b2926f5e1def0123e97bc0",
- *       "firstname": "Jenny",
- *       "lastname": "Doe",
- *       "createdAte": "2017-29-02T08:30:00.000Z",
- *       "role": "citizen"
- *     }
+ *    {
+ *       "firstname": "Sophie",
+ *       "lastname": "Donnet-Monnet",
+ *       "role": "manager",
+ *       "createdAte": "2017-03-08T17:15:03.006Z",
+ *       "id": "58b577e4ab8f2b00111b835f"
+ *    }
  */
 router.put('/:user_id', function(req, res, next) {
    User.findById(req.params.user_id, function(err, user) {
@@ -186,10 +185,10 @@ router.put('/:user_id', function(req, res, next) {
   user.save(function(err) {
       if (err) {
           if (err.name == 'ValidationError') {
-            res.status(422).send("l'erreur suivante est survenue : " + err);
+            res.status(422).send("There's a error : " + err);
             return;
         } else {
-            res.status(500).send("l'erreur suivante est survenue : " + err);
+            res.status(500).send("There's a error : " + err);
             return;
           }
       }
@@ -200,7 +199,7 @@ router.put('/:user_id', function(req, res, next) {
 
 
 /**
- * @api {patch} /users/:id Partially update a user
+ * @api {patch} users/:id Partially update a user
  * @apiName PartiallyUpdateUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -214,26 +213,24 @@ router.put('/:user_id', function(req, res, next) {
  * @apiUse UserValidationError
  *
  * @apiExample Example
- *     PATCH /api/users/58b2926f5e1def0123e97bc0 HTTP/1.1
+ *     PATCH /api/users/58b577e4ab8f2b00111b835f HTTP/1.1
  *     Content-Type: application/json
  *
- *     {
- *       "firstname": "Jenny",
- *       "lastname": "Doe",
- *       "role": "citizen"
- *     }
+ *    {
+ *       "lastname": "Donnet",
+ *    }
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
  *
- *     {
- *       "id": "58b2926f5e1def0123e97bc0",
- *       "firstname": "Jenny",
- *       "lastname": "Doe",
- *       "createdAte": "2017-29-02T08:30:00.000Z",
- *       "role": "citizen"
- *     }
+ *    {
+ *       "firstname": "Sophie",
+ *       "lastname": "Donnet",
+ *       "role": "manager",
+ *       "createdAte": "2017-03-08T17:15:03.006Z",
+ *       "id": "58b577e4ab8f2b00111b835f"
+ *    }
  */
 router.patch('/:user_id', function(req, res, next) {
    User.findById(req.params.user_id, function(err, user) {
@@ -254,10 +251,10 @@ router.patch('/:user_id', function(req, res, next) {
     user.save(function(err) {
       if (err) {
           if (err.name == 'ValidationError') {
-            res.status(422).send("l'erreur suivante est survenue : " + err);
+            res.status(422).send("There's a error : " + err);
             return;
         } else {
-            res.status(500).send("l'erreur suivante est survenue : " + err);
+            res.status(500).send("There's a error : " + err);
             return;
           }
       }
@@ -316,7 +313,7 @@ function userNotFound(res, userId) {
  *     HTTP/1.1 422 Unprocessable Entity
  *     Content-Type: application/json
  *
- *     l'erreur suivante est survenue : ValidationError: Path `role` is required.
+ *     There's a error : ValidationError: Path `role` is required.
  */
 
 

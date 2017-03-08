@@ -9,7 +9,7 @@ const Issue = require('../models/issue');
 const router = express.Router();
 
 /**
- * @api {post} /issues Create a issue
+ * @api {post} issues Create a issue
  * @apiName CreateIssue
  * @apiGroup Issue
  * @apiVersion 1.0.0
@@ -68,7 +68,7 @@ router.post('/', function(req, res, next) {
 });
 
 /**
- * @api {get} /api/issues Retrieve the list of issues
+ * @api {get} /issues Get the list of issues
  * @apiName RetrieveIssues
  * @apiGroup Issue
  * @apiVersion 1.0.0
@@ -124,7 +124,7 @@ router.get('/', function(req, res, next) {
 });
 
 /**
- * @api {get} /issue/user/:id Retrieve list of objects of a person
+ * @api {get} /issue/user/:id Get list of objects of a person
  * @apiName RetrieveFilterIssues
  * @apiGroup Issue
  * @apiVersion 1.0.0
