@@ -143,7 +143,7 @@ router.get('/', function(req, res, next) {
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
- *     Link: ?????? &lt;https://evening-meadow-25867.herokuapp.com/api/issues?page=1&pageSize=50&gt;; rel="first prev"
+ *     Link: https://heigvd-webserv-2017-team-2.herokuapp.com/issues/user/58c03bc9cfb9e30011edf398
  *     [
  * 		{
  * 			"_id": "58b69f71bf8a230c1bd6727c",
@@ -181,7 +181,7 @@ router.get('/user/:id', function(req, res, next) {
     		query = query.where('user').equals(req.params.id);
  	  }
   else
-    return res.type('text').send("Aucun résultat trouvé");
+    return res.type('text').send("No result found");
 
   // Execute the query
   query.exec(function(err, issues) {
@@ -344,10 +344,10 @@ router.patch('/:id', function(req, res, next) {
     issue.save(function(err) {
      	if (err) {
 	      	if (err.name == 'ValidationError') {
-		        res.status(422).send("l'erreur suivante est survenue : " + err);
+		        res.status(422).send("There's a error : " + err);
 		        return;
 		    } else {
-		        res.status(500).send("l'erreur suivante est survenue : " + err);
+		        res.status(500).send("There's a error : " + err);
 		        return;
 		      }
     	}
@@ -431,10 +431,10 @@ router.put('/:id', function(req, res, next) {
     issue.save(function(err) {
       if (err) {
           if (err.name == 'ValidationError') {
-            res.status(422).send("l'erreur suivante est survenue : " + err);
+            res.status(422).send("There's a error : " + err);
             return;
         } else {
-            res.status(500).send("l'erreur suivante est survenue : " + err);
+            res.status(500).send("There's a error : " + err);
             return;
           }
       }
