@@ -61,7 +61,7 @@ router.post('/', function(req, res, next) {
 
 /**
  * @api {get} users Get the list of issues
- * @apiName RetrieveUsers
+ * @apiName GetUsers
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Retrieves the list of users.
@@ -102,7 +102,7 @@ router.get('/', function(req, res, next) {
 
 /**
  * @api {get} users/:id Get a specific user
- * @apiName RetrieveUser
+ * @apiName GetUser
  * @apiGroup User
  * @apiVersion 1.0.0
  * @apiDescription Retrieves one user.

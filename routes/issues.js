@@ -1,12 +1,15 @@
 const debug = require('debug')('demo:issues');
-const express = require('express');
+//const express = require('express');
+
+var express = require('express');
+var router = express.Router();
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 const User = require('../models/user');
 const Issue = require('../models/issue');
 
-const router = express.Router();
+//const router = express.Router();
 
 /**
  * @api {post} issues Create a issue
@@ -63,13 +66,13 @@ router.post('/', function(req, res, next) {
       }
     }
       // Send the saved document in the response
-    res.send(savedUser);
+    res.send(savedIssue);
   });
 });
 
 /**
- * @api {get} /issues Get the list of issues
- * @apiName RetrieveIssues
+ * @api {get} issues Get the list of issues
+ * @apiName GetIssues
  * @apiGroup Issue
  * @apiVersion 1.0.0
  * @apiDescription the list of issues.
@@ -124,8 +127,8 @@ router.get('/', function(req, res, next) {
 });
 
 /**
- * @api {get} /issue/user/:id Get list of objects of a person
- * @apiName RetrieveFilterIssues
+ * @api {get} issue/user/:id Get list of objects of a person
+ * @apiName GetFilterIssues
  * @apiGroup Issue
  * @apiVersion 1.0.0
  * @apiDescription The List of issue filter by a user's id.
@@ -190,8 +193,8 @@ router.get('/user/:id', function(req, res, next) {
 });
 
 /**
- * @api {get} /api/issues/:id Retrieve a specific issue
- * @apiName RetrieveIssue
+ * @api {get} issues/:id Get a specific issue
+ * @apiName GetIssue
  * @apiGroup Issue
  * @apiVersion 1.0.0
  * @apiDescription Retrieves one issue.
@@ -201,7 +204,7 @@ router.get('/user/:id', function(req, res, next) {
  * @apiUse IssueNotFoundError
  *
  * @apiExample Example
- *     GET /api/issues/58b2926f5e1def0123e97281 HTTP/1.1
+ *     GET issues/58b2926f5e1def0123e97281 HTTP/1.1
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
@@ -233,7 +236,7 @@ router.get('/:id', function(req, res, next) {
 
 
 /**
- * @api {delete} /api/issues/:id Delete a issue
+ * @api {delete} issues/:id Delete a issue
  * @apiName DeleteIssue
  * @apiGroup Issue
  * @apiVersion 1.0.0
@@ -243,7 +246,7 @@ router.get('/:id', function(req, res, next) {
  * @apiUse IssueNotFoundError
  *
  * @apiExample Example
- *     DELETE /api/issues/58b2926f5e1def0123e97bc0 HTTP/1.1
+ *     DELETE issues/58b2926f5e1def0123e97bc0 HTTP/1.1
  *
  * @apiSuccessExample 204 No Content
  *     HTTP/1.1 204 No Content
@@ -265,7 +268,7 @@ router.delete('/:id', function(req, res, next) {
 });
 
 /**
- * @api {patch} /api/issues/:id Partially update a issue
+ * @api {patch} issues/:id Partially update a issue
  * @apiName PartiallyUpdateIssue
  * @apiGroup Issue
  * @apiVersion 1.0.0
@@ -279,7 +282,7 @@ router.delete('/:id', function(req, res, next) {
  * @apiUse IssueValidationError
  *
  * @apiExample Example
- *     PATCH /api/issues/58b69f71bf8a230c1bd6727c HTTP/1.1
+ *     PATCH issues/58b69f71bf8a230c1bd6727c HTTP/1.1
  *     Content-Type: application/json
  *
  *     {
@@ -357,7 +360,7 @@ router.patch('/:id', function(req, res, next) {
 });
 
 /**
- * @api {put} /api/issues/:id Update a issue
+ * @api {put} issues/:id Update a issue
  * @apiName UpdateIssue
  * @apiGroup Issue
  * @apiVersion 1.0.0
@@ -370,7 +373,7 @@ router.patch('/:id', function(req, res, next) {
  * @apiUse IssueValidationError
  *
  * @apiExample Example
- *     PUT /api/issues/58b69f71bf8a230c1bd6727c HTTP/1.1
+ *     PUT issues/58b69f71bf8a230c1bd6727c HTTP/1.1
  *     Content-Type: application/json
  *
  * 		{
