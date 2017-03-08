@@ -135,7 +135,7 @@ router.get('/', function(req, res, next) {
  * @apiParam (URL query parameters) {String} user Select only issues created by the user with the specified ID (this parameter can be given multiple times)
  *
  * @apiExample Example
- *     GET /api/issues/issues/user/58b6891d5eb8a407e3813cf9 HTTP/1.1
+ *     GET /issues/user/58b6891d5eb8a407e3813cf9 HTTP/1.1
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK

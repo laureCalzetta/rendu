@@ -70,7 +70,6 @@ const issueSchema = new Schema({
   // Date, the date at which the issue was reported
   created_at: {
     type: Date,
-    required: true,
     default: Date.now
   },
 
