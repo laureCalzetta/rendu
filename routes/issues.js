@@ -418,7 +418,7 @@ router.patch('/:id', function(req, res, next) {
  *      "longitude": 10,
  *      "__v": 1,
  *      "created_at": "2017-03-08T22:11:20.517Z",
- *      "updated_at": "22017-03-10T08:26:00.489Z",
+ *      "updated_at": "2017-03-10T08:26:00.489Z",
  *      "tags": [
  *        "tag1",
  *        "tag2",
