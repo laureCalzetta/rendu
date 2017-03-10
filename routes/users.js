@@ -117,14 +117,15 @@ router.get('/', function(req, res, next) {
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
+ *     Link: https://heigvd-webserv-2017-team-2.herokuapp.com/users/58c03bc9cfb9e30011edf398
  *
- * {
- *   "firstname": "John",
- *   "lastname": "Doe",
- *   "role": "citizen",
- *   "createdAte": "2017-03-08T17:13:45.882Z",
- *   "id": "58c03bc9cfb9e30011edf398"
- * }
+ *     {
+ *       "firstname": "John",
+ *       "lastname": "Doe",
+ *       "role": "citizen",
+ *       "createdAte": "2017-03-08T17:13:45.882Z",
+ *       "id": "58c03bc9cfb9e30011edf398"
+ *     }
  */
 router.get('/:user_id', function(req, res, next) {
   User.findById(req.params.user_id, function(err, user) {
@@ -213,7 +214,7 @@ router.put('/:user_id', function(req, res, next) {
  * @apiUse UserValidationError
  *
  * @apiExample Example
- *     PATCH /api/users/58b577e4ab8f2b00111b835f HTTP/1.1
+ *     PATCH /users/58b577e4ab8f2b00111b835f HTTP/1.1
  *     Content-Type: application/json
  *
  *    {

@@ -27,29 +27,32 @@ const Issue = require('../models/issue');
  *     POST /issues HTTP/1.1
  *     Content-Type: application/json
  *
- *		{
- *			"user": "58b6891d5eb8a407e3813cf9",
- *			"latitude": 55,
- *			"longitude": 10,
- *			"status": "new",
- *			"tags": ["test1","hello"]
- *		}
+ *    {
+ *      "user": "58c03bc9cfb9e30011edf398",
+ *      "latitude": 55,
+ *      "longitude": 10,
+ *      "status": "new",
+ *      "tags": ["tag1","tag2"]
+  *   }
  *
  * @apiSuccessExample 201 Created
  *     HTTP/1.1 201 Created
  *     Content-Type: application/json
- *     Location: https://heigvd-webserv-2017-team-2.herokuapp.com/issues/58b6a5dddade2b0d08fc16d2
+ *     Location: https://heigvd-webserv-2017-team-2.herokuapp.com/issues/58c08188c08a0100116a2858
  *
- *	   {
- *       "__v":0,
- *       "user":"58b6891d5eb8a407e3813cf9",
- *       "latitude":55,
- *       "longitude":10,
- *       "_id":"58b6a5dddade2b0d08fc16d2",
- *       "created_at":"2017-03-01T10:43:41.757Z",
- *       "tags":["test1","hello"],
- *       "status":"new"
- *     }
+ *   {
+ *     "__v": 0,
+ *     "user": "58c03bc9cfb9e30011edf398",
+ *     "latitude": 55,
+ *     "longitude": 10,
+ *     "_id": "58c08188c08a0100116a2858",
+ *     "created_at": "2017-03-08T22:11:20.517Z",
+ *     "tags": [
+ *       "tag1",
+ *      "tag2"
+ *     ],
+  *    "status": "new"
+ *   }
  */
 router.post('/', function(req, res, next) {
   // Create a new document from the JSON in the request body
@@ -85,35 +88,48 @@ router.post('/', function(req, res, next) {
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
- *     Link: &lthttps://heigvd-webserv-2017-team-2.herokuapp.com/issues/58b6a5dddade2b0d08fc16d2; rel="first prev"
- *     [
- * 		{
- * 			"_id": "58b69f71bf8a230c1bd6727c",
- *   		"latitude": 10,
- *   		"longitude": 10,
- *   		"user": "58b6891d5eb8a407e3813cf9",
- *  		"__v": 0,
- *   		"created_at": "2017-03-01T10:16:17.525Z",
- *   		"tags": [
- *     			"tag1",
- *     			"tag2"
- *			],
- *   		"status": "new"
- * 		},
- * 		{
- * 			"_id": "58b69f973967d90c236645dd",
- *   		"latitude": 55,
- *   		"longitude": 10,
- *   		"user": "58b6891d5eb8a407e3813cf9",
- *  		"__v": 0,
- *   		"created_at": "2017-03-01T10:40:17.525Z",
- *   		"tags": [
- *     			"tag3",
- *     			"tag4"
- *			],
- *   		"status": "new"
- * 		}
- *     ]
+ *     Link: https://heigvd-webserv-2017-team-2.herokuapp.com/issues"
+ *   [
+ *     {
+ *       "_id": "58c042be5bdbf60011bdcc41",
+ *       "user": "58c03bc9cfb9e30011edf398",
+ *       "latitude": 55,
+ *       "longitude": 10,
+ *       "__v": 0,
+ *       "created_at": "2017-03-08T17:43:26.257Z",
+ *       "tags": [
+ *         "tag1",
+ *         "tag2"
+ *       ],
+ *       "status": "new"
+ *     },
+ *     {
+ *      "_id": "58c08188c08a0100116a2858",
+ *       "user": "58c03bc9cfb9e30011edf398",
+ *       "latitude": 55,
+ *       "longitude": 10,
+ *       "__v": 0,
+ *       "created_at": "2017-03-08T22:11:20.517Z",
+ *       "tags": [
+ *         "tag1",
+ *         "tag2"
+ *       ],
+ *       "status": "new"
+ *     },
+ *     {
+ *      "__v": 0,
+ *      "user": "58b577e4ab8f2b00111b835f",
+ *      "latitude": 15,
+ *      "longitude": 30,
+ *      "_id": "58c082d1c08a0100116a2859",
+ *      "created_at": "2017-03-08T22:16:49.669Z",
+ *      "tags": [
+ *        "tag3",
+ *        "ta42"
+ *      ],
+ *      "status": "new"
+ *     }
+ *   ]
  */
 router.get('/', function(req, res, next) {
   Issue.find().sort('name').exec(function(err, issues) {
@@ -138,39 +154,39 @@ router.get('/', function(req, res, next) {
  * @apiParam (URL query parameters) {String} user Select only issues created by the user with the specified ID (this parameter can be given multiple times)
  *
  * @apiExample Example
- *     GET /issues/user/58b6891d5eb8a407e3813cf9 HTTP/1.1
+ *     GET /issues/user/58c03bc9cfb9e30011edf398 HTTP/1.1
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
  *     Link: https://heigvd-webserv-2017-team-2.herokuapp.com/issues/user/58c03bc9cfb9e30011edf398
  *     [
- * 		{
- * 			"_id": "58b69f71bf8a230c1bd6727c",
- *   		"latitude": 10,
- *   		"longitude": 10,
- *   		"user": "58b6891d5eb8a407e3813cf9",
- *  		"__v": 0,
- *   		"created_at": "2017-03-01T10:16:17.525Z",
- *   		"tags": [
- *     			"tag1",
- *     			"tag2"
- *			],
- *   		"status": "new"
- * 		},
- * 		{
- * 			"_id": "58b69f973967d90c236645dd",
- *   		"latitude": 55,
- *   		"longitude": 10,
- *   		"user": "58b6891d5eb8a407e3813cf9",
- *  		"__v": 0,
- *   		"created_at": "2017-03-01T10:40:17.525Z",
- *   		"tags": [
- *     			"tag3",
- *     			"tag4"
- *			],
- *   		"status": "new"
- * 		}
+*     {
+ *       "_id": "58c042be5bdbf60011bdcc41",
+ *       "user": "58c03bc9cfb9e30011edf398",
+ *       "latitude": 55,
+ *       "longitude": 10,
+ *       "__v": 0,
+ *       "created_at": "2017-03-08T17:43:26.257Z",
+ *       "tags": [
+ *         "tag1",
+ *         "tag2"
+ *       ],
+ *       "status": "new"
+ *     },
+ *     {
+ *      "_id": "58c08188c08a0100116a2858",
+ *       "user": "58c03bc9cfb9e30011edf398",
+ *       "latitude": 55,
+ *       "longitude": 10,
+ *       "__v": 0,
+ *       "created_at": "2017-03-08T22:11:20.517Z",
+ *       "tags": [
+ *         "tag1",
+ *         "tag2"
+ *       ],
+ *       "status": "new"
+ *     }
  *     ]
  */
 router.get('/user/:id', function(req, res, next) {
@@ -204,25 +220,26 @@ router.get('/user/:id', function(req, res, next) {
  * @apiUse IssueNotFoundError
  *
  * @apiExample Example
- *     GET issues/58b2926f5e1def0123e97281 HTTP/1.1
+ *     GET issues/58c08188c08a0100116a2858 HTTP/1.1
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
+ *     Link: https://heigvd-webserv-2017-team-2.herokuapp.com/issues/58c082d1c08a0100116a2859
  *
- * 		{
- * 			"_id": "58b2926f5e1def0123e97281",
- *   		"latitude": 55,
- *   		"longitude": 10,
- *   		"user": "58b6891d5eb8a407e3813cf9",
- *  		"__v": 0,
- *   		"created_at": "2017-03-01T10:40:17.525Z",
- *   		"tags": [
- *     			"tag3",
- *     			"tag4"
- *			],
- *   		"status": "new"
- * 		}
+ *     {
+ *      "__v": 0,
+ *      "user": "58b577e4ab8f2b00111b835f",
+ *      "latitude": 15,
+ *      "longitude": 30,
+ *      "_id": "58c082d1c08a0100116a2859",
+ *      "created_at": "2017-03-08T22:16:49.669Z",
+ *      "tags": [
+ *        "tag3",
+ *        "ta42"
+ *      ],
+ *      "status": "new"
+ *     }
  */
 router.get('/:id', function(req, res, next) {
   Issue.findById(req.params.id, function(err, issue) {
@@ -246,7 +263,7 @@ router.get('/:id', function(req, res, next) {
  * @apiUse IssueNotFoundError
  *
  * @apiExample Example
- *     DELETE issues/58b2926f5e1def0123e97bc0 HTTP/1.1
+ *     DELETE issues/58c083f6c08a0100116a285a HTTP/1.1
  *
  * @apiSuccessExample 204 No Content
  *     HTTP/1.1 204 No Content
@@ -260,8 +277,9 @@ router.delete('/:id', function(req, res, next) {
 		    if (err) {
 		      return next(err);
 		    }
+		   res.sendStatus(204);
 
-		    res.sendStatus(204);
+
 	 		});
     });
 
@@ -282,7 +300,7 @@ router.delete('/:id', function(req, res, next) {
  * @apiUse IssueValidationError
  *
  * @apiExample Example
- *     PATCH issues/58b69f71bf8a230c1bd6727c HTTP/1.1
+ *     PATCH issues/58c042be5bdbf60011bdcc41 HTTP/1.1
  *     Content-Type: application/json
  *
  *     {
@@ -293,20 +311,20 @@ router.delete('/:id', function(req, res, next) {
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
  *
- * 		{
- * 			"_id": "58b69f71bf8a230c1bd6727c",
- *   		"latitude": 34,
- *   		"longitude": 10,
- *   		"user": "58b6891d5eb8a407e3813cf9",
- *  		"__v": 0,
- *  		"updated_at": "2017-03-01T12:06:29.342Z",
- *   		"created_at": "2017-03-01T10:16:17.525Z",
- *   		"tags": [
- *     			"tag1",
- *     			"tag2"
- *			],
- *   		"status": "new"
- * 		}
+ *    {
+ *      "updated_at": "2017-03-10T08:22:07.173Z",
+ *      "_id": "58c042be5bdbf60011bdcc41",
+ *      "user": "58c03bc9cfb9e30011edf398",
+ *      "latitude": 34,
+ *      "longitude": 10,
+ *      "__v": 0,
+ *      "created_at": "2017-03-08T17:43:26.257Z",
+ *      "tags": [
+ *        "tag1",
+ *        "tag2"
+ *      ],
+ *      "status": "new"
+ *    }
  *
  */
 router.patch('/:id', function(req, res, next) {
@@ -373,41 +391,41 @@ router.patch('/:id', function(req, res, next) {
  * @apiUse IssueValidationError
  *
  * @apiExample Example
- *     PUT issues/58b69f71bf8a230c1bd6727c HTTP/1.1
+ *     PUT issues/58c08188c08a0100116a2858 HTTP/1.1
  *     Content-Type: application/json
  *
- * 		{
- * 			"_id": "58b69f71bf8a230c1bd6727c",
- *   		"latitude": 34,
- *   		"longitude": 10,
- *   		"user": "58b6891d5eb8a407e3813cf9",
- *  		"__v": 0,
- *   		"created_at": "2017-03-01T10:16:17.525Z",
- *   		"tags": [
- *     			"tag1",
- *     			"tag2"
- *			],
- *   		"status": "inProgress"
- * 		}
+ *    {
+ *        "_id": "58c08188c08a0100116a2858",
+ *        "user": "58c03bc9cfb9e30011edf398",
+ *        "latitude": 55,
+ *        "longitude": 10,
+ *        "tags": [
+ *          "tag1",
+ *          "tag2",
+ *          "nouveau tag"
+ *        ],
+ *       "status": "new"
+*     }
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
  *
- * 		{
- * 			"_id": "58b69f71bf8a230c1bd6727c",
- *   		"latitude": 34,
- *   		"longitude": 10,
- *   		"user": "58b6891d5eb8a407e3813cf9",
- *  		"__v": 0,
- *			"updated_at": "2017-03-01T12:05:30.640Z",
- *   		"created_at": "2017-03-01T10:16:17.525Z",
- *   		"tags": [
- *     			"tag1",
- *     			"tag2"
- *			],
- *   		"status": "inProgress"
- * 		}
+ *    {
+ *      "_id": "58c08188c08a0100116a2858",
+ *      "user": "58c03bc9cfb9e30011edf398",
+ *      "latitude": 55,
+ *      "longitude": 10,
+ *      "__v": 1,
+ *      "created_at": "2017-03-08T22:11:20.517Z",
+ *      "updated_at": "22017-03-10T08:26:00.489Z",
+ *      "tags": [
+ *        "tag1",
+ *        "tag2",
+ *        "nouveau tag"
+ *      ],
+ *      "status": "new"
+ *    }
  */
 router.put('/:id', function(req, res, next) {
 
