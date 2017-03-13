@@ -53,7 +53,7 @@ const issueSchema = new Schema({
   },
 
 
-  // (Optional) Array of Strings, user-defined tags to describe the issue (e.g. "accident", "broken")
+  // Array of Strings, user-defined tags to describe the issue (e.g. "accident", "broken")
   tags:{
   	type: [String],
     required: true
