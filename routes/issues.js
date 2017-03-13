@@ -481,9 +481,9 @@ function issueNotFound(res, issueId) {
  * @apiParam (Request body) {String="new","inProgress", "canceled", "completed"} status The status of the issue (default: new)
  * @apiParam (Request body) {String{0..1000}} [description] (Optional) The description of the issue
  * @apiParam (Request body) {String{0..500}} [url] (Optional) The url of the picture
- * @apiParam (Request body) {Number{0..30}} [latitude] (Optional) the latitude (part of the coordinates indicating where the issue is)
- * @apiParam (Request body) {Number{-180..180}} [longitude] (Optional) the longitude (part of the coordinates indicating where the issue is)
- * @apiParam (Request body) {[String]} [tag] (Optional) Array of Strings, user-defined tags to describe the issue
+ * @apiParam (Request body) {Number{0..30}} latitude The latitude (part of the coordinates indicating where the issue is)
+ * @apiParam (Request body) {Number{-180..180}} longitude The longitude (part of the coordinates indicating where the issue is)
+ * @apiParam (Request body) {[String]} tag Array of Strings, user-defined tags to describe the issue
  * @apiParam (Request body) {String} user A hyperlink reference to the user who created the issue
  */
 

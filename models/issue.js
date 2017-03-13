@@ -41,19 +41,22 @@ const issueSchema = new Schema({
     type: Number,
     required: true,
     min: 0,
-    max: 90
+    max: 90,
+    required: true
   },
   longitude: {
     type: Number,
     required: true,
     min: -180,
-    max: 180
+    max: 180,
+    required: true
   },
 
 
   // (Optional) Array of Strings, user-defined tags to describe the issue (e.g. "accident", "broken")
   tags:{
   	type: [String],
+    required: true
   },
 
   // User, the user who reported the issue. He's the creator
